@@ -12,7 +12,7 @@
 
 @section('content')
 
-    <div class="no-print mb-4 flex justify-end gap-2">
+    <div class="print:hidden mb-4 flex justify-end gap-2">
         <a href="{{ route('kwitansi.index') }}" class="px-4 py-2 rounded-md border border-slate-300 text-slate-700 bg-white">
             &larr; Kembali
         </a>
