@@ -98,14 +98,14 @@
         <div class="flex justify-end">
             <div class="text-center w-56 relative">
                 <p class="text-sm text-slate-600 mb-1">
-                    {{ config('company.address') }} ({{ \Carbon\Carbon::parse($kwitansi->tanggal)->translatedFormat('d F Y') }})
+                    {{ config('company.name') }} <br/> ({{ \Carbon\Carbon::parse($kwitansi->tanggal)->translatedFormat('d F Y') }})
                 </p>
                 <p class="text-sm text-slate-600 mb-16">Penerima,</p>
 
                 {{-- Area stempel: ditumpuk transparan di atas area tanda tangan --}}
                 @if(file_exists(public_path(config('company.stempel'))))
                     <img src="{{ asset(config('company.stempel')) }}" alt="Stempel"
-                         class="h-24 w-24 object-contain absolute left-1/2 -translate-x-1/2 -top-4 opacity-80 pointer-events-none">
+                         class="w-70 object-contain absolute left-1/2 -translate-x-1/2 -top-4 opacity-80 pointer-events-none">
                 @endif
 
                 <p class="border-t border-slate-800 pt-1 font-semibold text-slate-800">

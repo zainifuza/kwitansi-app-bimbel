@@ -66,23 +66,24 @@ class KwitansiController extends Controller
     public function download(Kwitansi $kwitansi)
     {
         $terbilang = Terbilang::make((float) $kwitansi->harga) . ' Rupiah';
-        $tailwindCss = '';
-        $manifestPath = public_path('build/manifest.json');
 
-        if (is_file($manifestPath)) {
-            $manifest = json_decode(file_get_contents($manifestPath), true);
-            $stylesheet = $manifest['resources/css/app.css']['file'] ?? null;
-            $stylesheetPath = $stylesheet ? public_path('build/' . $stylesheet) : null;
-
-            if ($stylesheetPath && is_file($stylesheetPath)) {
-                $tailwindCss = file_get_contents($stylesheetPath);
-            }
+        $logoPath = public_path(config('company.logo'));
+        $logoData = null;
+        if (file_exists($logoPath)) {
+            $logoData = 'data:image/' . pathinfo($logoPath, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($logoPath));
         }
 
-        $pdf = Pdf::loadView('kwitansi.pdf', compact('kwitansi', 'terbilang', 'tailwindCss'))
-            ->setPaper('a5', 'landscape');
+        $stempelPath = public_path(config('company.stempel'));
+        $stempelData = null;
+        if (file_exists($stempelPath)) {
+            $stempelData = 'data:image/' . pathinfo($stempelPath, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($stempelPath));
+        }
 
-        $filename = str_replace(['/', '\\'], '-', $kwitansi->nomor_kwitansi);
+        $pdf = Pdf::loadView('kwitansi.pdf', compact('kwitansi', 'terbilang', 'logoData', 'stempelData'))
+            ->setPaper('a5', 'portrait')
+            ->setOption('isRemoteEnabled', false);
+
+        $filename = str_replace(['/', '\\'], '-', date('his') . '-' . $kwitansi->nomor_kwitansi);
 
         return $pdf->download('kwitansi-' . $filename . '.pdf');
     }

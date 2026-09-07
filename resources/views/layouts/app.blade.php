@@ -18,6 +18,9 @@
                class="bg-white text-indigo-700 px-3 py-1.5 rounded-md text-sm font-medium hover:bg-indigo-50">
                 + Buat Kwitansi
             </a>
+            <a href="{{ route('settings.company.edit') }}" class="text-sm font-medium text-indigo-100 hover:text-white">
+                Pengaturan
+            </a>
         </div>
     </nav>
 

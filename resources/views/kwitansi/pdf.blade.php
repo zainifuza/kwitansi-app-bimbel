@@ -4,49 +4,88 @@
     <meta charset="UTF-8">
     <title>Kwitansi {{ $kwitansi->nomor_kwitansi }}</title>
     <style>
-        @page { size: A5 landscape; margin: 10mm; }
-        body { font-family: DejaVu Sans, sans-serif; }
+        @page { size: A5 portrait; margin: 12mm; }
+        body { color: #1e293b; font-family: DejaVu Sans, sans-serif; font-size: 11px; margin: 0; padding: 0; }
+        .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #d30404; padding-bottom: 10px; margin-bottom: 14px; }
+        .logo-img { height: 55px; width: auto; }
+        .company-block { margin-left: 10px; }
+        .company-name { font-size: 13px; font-weight: bold; text-transform: uppercase; }
+        .company-detail { color: #64748b; font-size: 9px; line-height: 1.4; }
+        .title-block { text-align: right; margin-top: 10px; }
+        .title-text { font-size: 20px; font-weight: bold; letter-spacing: 2px; }
+        .title-number { color: #64748b; font-size: 10px; margin-top: 2px; }
+        .receipt-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+        .receipt-table td { padding: 4px 0; vertical-align: top; }
+        .label { color: #64748b; width: 155px; }
+        .colon { width: 10px; }
+        .amount-box { border: 2px solid #1e293b; padding: 8px 12px; text-align: right; display: inline-block; margin-left: auto; }
+        .amount-label { color: #64748b; font-size: 9px; }
+        .amount-value { font-size: 15px; font-weight: bold; }
+        .signature-block { margin-top: 40px; text-align: right; }
+        .signature-date { font-size: 10px; color: #64748b; }
+        .stamp-img { height: auto; width: 100px; opacity: 0.8; margin-bottom: -15px; }
+        .signature-line { border-top: 1px solid #1e293b; padding-top: 4px; font-weight: bold; font-size: 10px; }
     </style>
-    {!! $tailwindCss !!}
 </head>
-<body class="text-slate-800 text-[11px]">
-    <div class="border-b-2 border-slate-800 pb-3 mb-5">
-        <table class="w-full border-collapse">
-            <tr>
-                <td class="align-top">
-                    @if(file_exists(public_path(config('company.logo'))))
-                        <img class="h-14 w-14 object-contain mr-3" src="{{ public_path(config('company.logo')) }}" alt="Logo">
-                    @endif
-                    <span class="text-sm font-bold uppercase">{{ config('company.name') }}</span><br>
-                    <span class="text-slate-500">{{ config('company.address') }}</span><br>
-                    <span class="text-slate-500">Telp: {{ config('company.phone') }} | Email: {{ config('company.email') }}</span>
-                </td>
-                <td class="align-top text-right">
-                    <div class="text-xl font-bold tracking-[3px]">KWITANSI</div>
-                    <div class="text-slate-500">No: {{ $kwitansi->nomor_kwitansi }}</div>
-                </td>
-            </tr>
-        </table>
+<body>
+    <div class="header">
+        <div style="display: flex; align-items: center; text-align: center;">
+            @if($logoData)
+                <img class="logo-img" src="{{ $logoData }}" alt="Logo">
+            @endif
+            <div class="company-block">
+                <div class="company-name">{{ config('company.name') }}</div>
+                <div class="company-detail">{{ config('company.address') }}</div>
+                <div class="company-detail">Telp: {{ config('company.phone') }}</div>
+                <div class="company-detail">Email: {{ config('company.email') }}</div>
+            </div>
+        </div>
+        <div class="title-block" style="align-items: center; text-align: center;">
+            <div class="title-text">KWITANSI</div>
+            <div class="title-number">No: {{ $kwitansi->nomor_kwitansi }}</div>
+        </div>
     </div>
 
-    <table class="w-full border-collapse mb-5">
-        <tr><td class="py-1 text-slate-500 w-40 align-top">Sudah terima dari</td><td class="py-1 w-3 align-top">:</td><td class="py-1"><strong>{{ $kwitansi->nama_pembeli }}</strong></td></tr>
-        <tr><td class="py-1 text-slate-500 align-top">Paket Bimbingan Belajar</td><td class="py-1 align-top">:</td><td class="py-1"><strong>{{ $kwitansi->nama_paket }}</strong></td></tr>
-        <tr><td class="py-1 text-slate-500 align-top">Untuk pembayaran</td><td class="py-1 align-top">:</td><td class="py-1">{{ $kwitansi->tujuan_pembelian }}</td></tr>
-        <tr><td class="py-1 text-slate-500 align-top">Terbilang</td><td class="py-1 align-top">:</td><td class="py-1"><em>{{ $terbilang }}</em></td></tr>
-        <tr><td class="py-1 text-slate-500 align-top">Tanggal</td><td class="py-1 align-top">:</td><td class="py-1">{{ \Carbon\Carbon::parse($kwitansi->tanggal)->translatedFormat('d F Y') }}</td></tr>
+    <table class="receipt-table">
+        <tr>
+            <td class="label">Sudah terima dari</td>
+            <td class="colon">:</td>
+            <td><strong>{{ $kwitansi->nama_pembeli }}</strong></td>
+        </tr>
+        <tr>
+            <td class="label">Paket Bimbingan Belajar</td>
+            <td class="colon">:</td>
+            <td><strong>{{ $kwitansi->nama_paket }}</strong></td>
+        </tr>
+        <tr>
+            <td class="label">Untuk pembayaran</td>
+            <td class="colon">:</td>
+            <td>{{ $kwitansi->tujuan_pembelian }}</td>
+        </tr>
+        <tr>
+            <td class="label">Terbilang</td>
+            <td class="colon">:</td>
+            <td><em>{{ $terbilang }}</em></td>
+        </tr>
+        <tr>
+            <td class="label">Tanggal</td>
+            <td class="colon">:</td>
+            <td>{{ \Carbon\Carbon::parse($kwitansi->tanggal)->translatedFormat('d F Y') }}</td>
+        </tr>
     </table>
 
-    <div class="border-2 border-slate-800 px-4 py-2 text-right w-40 ml-auto">
-        <div class="text-slate-500 text-[9px]">Jumlah</div>
-        <div class="text-base font-bold">Rp {{ number_format($kwitansi->harga, 0, ',', '.') }}</div>
+    <div class="amount-box">
+        <div class="amount-label">Jumlah</div>
+        <div class="amount-value">Rp {{ number_format($kwitansi->harga, 0, ',', '.') }}</div>
     </div>
 
-    <div class="mt-5 ml-auto text-center w-48">
-        <div>{{ config('company.address') }}, {{ \Carbon\Carbon::parse($kwitansi->tanggal)->translatedFormat('d F Y') }}</div>
-        <div>Penerima,</div>
-        <div class="h-13"></div>
-        <div class="border-t border-slate-800 pt-1 font-bold">{{ $kwitansi->nama_penerima ?: config('company.penerima') }}</div>
+    <div class="signature-block">
+        <div class="signature-date">{{ config('company.name') }}, {{ \Carbon\Carbon::parse($kwitansi->tanggal)->translatedFormat('d F Y') }}</div>
+        <div style="color: #64748b; font-size: 10px; margin-top: 2px;">Penerima,</div>
+        @if($stempelData)
+            <img class="stamp-img" src="{{ $stempelData }}" alt="Stempel">
+        @endif
+        <div class="signature-line">{{ $kwitansi->nama_penerima ?: config('company.penerima') }}</div>
     </div>
 </body>
 </html>
