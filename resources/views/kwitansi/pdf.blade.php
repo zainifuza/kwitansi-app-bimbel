@@ -12,7 +12,7 @@
         .company-name { font-size: 13px; font-weight: bold; text-transform: uppercase; }
         .company-detail { color: #64748b; font-size: 9px; line-height: 1.4; }
         .title-block { text-align: right; margin-top: 10px; }
-        .title-text { font-size: 20px; font-weight: bold; letter-spacing: 2px; }
+        .title-text { font-size: 20px; font-weight: bold; letter-spacing: 2px; color: #d30a0a; }
         .title-number { color: #64748b; font-size: 10px; margin-top: 2px; }
         .receipt-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
         .receipt-table td { padding: 4px 0; vertical-align: top; }
@@ -36,8 +36,7 @@
             <div class="company-block">
                 <div class="company-name">{{ config('company.name') }}</div>
                 <div class="company-detail">{{ config('company.address') }}</div>
-                <div class="company-detail">Telp: {{ config('company.phone') }}</div>
-                <div class="company-detail">Email: {{ config('company.email') }}</div>
+                <div class="company-detail">Telp: {{ config('company.phone') }}, Email: {{ config('company.email') }}</div>
             </div>
         </div>
         <div class="title-block" style="align-items: center; text-align: center;">
