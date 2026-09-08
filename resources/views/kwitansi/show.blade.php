@@ -12,24 +12,24 @@
 
 @section('content')
 
-    <div class="print:hidden mb-4 flex justify-end gap-2">
-        <a href="{{ route('kwitansi.index') }}" class="px-4 py-2 rounded-md border border-slate-300 text-slate-700 bg-white">
+    <div class="mb-4 flex flex-col gap-2 print:hidden sm:flex-row sm:justify-end">
+        <a href="{{ route('kwitansi.index') }}" class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-slate-700">
             &larr; Kembali
         </a>
-        <button onclick="window.print()" class="px-4 py-2 rounded-md bg-indigo-600 text-white font-medium hover:bg-indigo-700">
+        <button onclick="window.print()" class="rounded-md bg-indigo-600 px-4 py-2 font-medium text-white hover:bg-indigo-700">
             Cetak Kwitansi
         </button>
-        <a href="{{ route('kwitansi.download', $kwitansi) }}" class="px-4 py-2 rounded-md bg-emerald-600 text-white font-medium hover:bg-emerald-700">
+        <a href="{{ route('kwitansi.download', $kwitansi) }}" class="inline-flex items-center justify-center rounded-md bg-emerald-600 px-4 py-2 font-medium text-white hover:bg-emerald-700">
             Unduh PDF
         </a>
     </div>
 
     {{-- KERTAS KWITANSI --}}
-    <div class="bg-white shadow rounded-xl p-8 border-2 border-dashed border-slate-300 relative overflow-hidden">
+    <div class="relative overflow-hidden rounded-xl border-2 border-dashed border-slate-300 bg-white p-4 shadow sm:p-8">
 
         {{-- HEADER: LOGO + ALAMAT PERUSAHAAN --}}
-        <div class="flex items-start justify-between border-b-2 border-slate-800 pb-4 mb-6">
-            <div class="flex items-center gap-4">
+        <div class="mb-6 flex flex-col gap-4 border-b-2 border-slate-800 pb-4 sm:flex-row sm:items-start sm:justify-between">
+            <div class="flex min-w-0 items-center gap-3 sm:gap-4">
                 @if(file_exists(public_path(config('company.logo'))))
                     <img src="{{ asset(config('company.logo')) }}" alt="Logo" class="h-16 w-16 object-contain">
                 @else
@@ -37,15 +37,15 @@
                         LOGO
                     </div>
                 @endif
-                <div>
-                    <h1 class="text-lg font-bold text-slate-800 uppercase">{{ config('company.name') }}</h1>
-                    <p class="text-sm text-slate-600">{{ config('company.address') }}</p>
-                    <p class="text-sm text-slate-600">
+                <div class="min-w-0">
+                    <h1 class="break-words text-lg font-bold uppercase text-slate-800">{{ config('company.name') }}</h1>
+                    <p class="break-words text-sm text-slate-600">{{ config('company.address') }}</p>
+                    <p class="break-words text-sm text-slate-600">
                         Telp: {{ config('company.phone') }} &middot; Email: {{ config('company.email') }}
                     </p>
                 </div>
             </div>
-            <div class="text-right">
+            <div class="text-left sm:text-right">
                 <h2 class="text-2xl font-extrabold tracking-widest text-slate-800">KWITANSI</h2>
                 <p class="text-sm text-slate-500">No: {{ $kwitansi->nomor_kwitansi }}</p>
             </div>
@@ -55,8 +55,8 @@
         <table class="w-full text-sm mb-6">
             <tbody>
                 <tr>
-                    <td class="py-1.5 w-48 text-slate-500 align-top">Sudah terima dari</td>
-                    <td class="py-1.5 w-4 align-top">:</td>
+                    <td class="w-32 py-1.5 align-top text-slate-500 sm:w-48">Sudah terima dari</td>
+                    <td class="w-4 py-1.5 align-top">:</td>
                     <td class="py-1.5 font-semibold text-slate-800 align-top">{{ $kwitansi->nama_pembeli }}</td>
                 </tr>
                 <tr>

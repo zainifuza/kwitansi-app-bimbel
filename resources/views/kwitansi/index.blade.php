@@ -4,14 +4,15 @@
 
 @section('content')
     <div class="bg-white rounded-xl shadow overflow-hidden">
-        <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+        <div class="flex flex-col gap-3 border-b border-slate-200 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
             <h1 class="text-lg font-bold text-slate-800">Daftar Kwitansi Bimbingan Belajar</h1>
-            <a href="{{ route('kwitansi.create') }}" class="text-sm bg-indigo-600 text-white px-3 py-1.5 rounded-md hover:bg-indigo-700">
+            <a href="{{ route('kwitansi.create') }}" class="inline-flex w-fit items-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm text-white hover:bg-indigo-700">
                 + Buat Kwitansi
             </a>
         </div>
 
-        <table class="w-full text-sm">
+        <div class="overflow-x-auto">
+        <table class="w-full min-w-[700px] text-sm">
             <thead class="bg-slate-50 text-slate-500 text-left">
                 <tr>
                     <th class="px-6 py-3">No. Kwitansi</th>
@@ -47,8 +48,9 @@
                 @endforelse
             </tbody>
         </table>
+        </div>
 
-        <div class="px-6 py-4">
+        <div class="px-4 py-4 sm:px-6">
             {{ $kwitansis->links() }}
         </div>
     </div>
