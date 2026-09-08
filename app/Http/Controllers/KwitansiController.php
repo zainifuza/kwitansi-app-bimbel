@@ -36,6 +36,7 @@ class KwitansiController extends Controller
             'nama_pembeli'     => 'required|string|max:255',
             'nama_paket'       => 'required|string|max:255',
             'harga'            => 'required|numeric|min:0',
+            'status_pembayaran' => 'required|in:LUNAS,BELUM LUNAS,CICILAN',
             'tujuan_pembelian' => 'required|string',
             'tanggal'          => 'required|date',
             'nama_penerima'    => 'nullable|string|max:255',
@@ -79,7 +80,19 @@ class KwitansiController extends Controller
             $stempelData = 'data:image/' . pathinfo($stempelPath, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($stempelPath));
         }
 
-        $pdf = Pdf::loadView('kwitansi.pdf', compact('kwitansi', 'terbilang', 'logoData', 'stempelData'))
+        $logoLunasPath = public_path(config('company.logo_lunas'));
+        $logoLunasData = null;
+        if (file_exists($logoLunasPath)) {
+            $logoLunasData = 'data:image/' . pathinfo($logoLunasPath, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($logoLunasPath));
+        }
+
+        $signaturePath = public_path(config('company.signature'));
+        $signatureData = null;
+        if (file_exists($signaturePath)) {
+            $signatureData = 'data:image/' . pathinfo($signaturePath, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($signaturePath));
+        }
+
+        $pdf = Pdf::loadView('kwitansi.pdf', compact('kwitansi', 'terbilang', 'logoData', 'stempelData', 'logoLunasData', 'signatureData'))
             ->setPaper('a5', 'portrait')
             ->setOption('isRemoteEnabled', false);
 

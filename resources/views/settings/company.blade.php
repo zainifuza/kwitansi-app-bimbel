@@ -59,7 +59,7 @@
             </div>
 
             <div class="grid gap-5 px-5 py-6 sm:grid-cols-2 sm:px-7">
-                @foreach (['logo' => 'Logo lembaga', 'stempel' => 'Stempel lembaga'] as $key => $label)
+                @foreach (['logo' => 'Logo lembaga', 'stempel' => 'Stempel lembaga', 'logo_lunas' => 'Logo lunas', 'signature' => 'Signature / tanda tangan'] as $key => $label)
                     <div>
                         <label for="{{ $key }}" class="mb-2 block text-sm font-semibold text-slate-700">{{ $label }}</label>
                         <div class="mb-3 flex h-24 items-center justify-center rounded-lg border border-dashed border-slate-300 bg-slate-50 p-2">

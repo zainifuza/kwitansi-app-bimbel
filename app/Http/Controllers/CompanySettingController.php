@@ -24,6 +24,8 @@ class CompanySettingController extends Controller
             'penerima' => 'required|string|max:255',
             'logo' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
             'stempel' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
+            'logo_lunas' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
+            'signature' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
         ]);
 
         foreach (['name', 'address', 'phone', 'email', 'penerima'] as $key) {
@@ -33,7 +35,7 @@ class CompanySettingController extends Controller
             );
         }
 
-        foreach (['logo', 'stempel'] as $imageKey) {
+        foreach (['logo', 'stempel', 'logo_lunas', 'signature'] as $imageKey) {
             if ($request->hasFile($imageKey)) {
                 $extension = $request->file($imageKey)->extension();
                 $filename = $imageKey . '.' . $extension;

@@ -60,6 +60,20 @@
                 </div>
 
                 <div class="grid gap-5 px-5 py-6 sm:grid-cols-2 sm:px-7">
+                    <fieldset class="sm:col-span-2">
+                        <legend class="mb-2 block text-sm font-semibold text-slate-700">Status pembayaran <span class="text-red-500">*</span></legend>
+                        <div class="grid gap-3 sm:grid-cols-3">
+                            @foreach (['LUNAS', 'BELUM LUNAS', 'CICILAN'] as $status)
+                                <label class="flex cursor-pointer items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm font-medium text-slate-700 transition has-[:checked]:border-indigo-500 has-[:checked]:bg-indigo-50 has-[:checked]:text-indigo-700">
+                                    <input type="radio" name="status_pembayaran" value="{{ $status }}" required
+                                           class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                                           {{ old('status_pembayaran', 'BELUM LUNAS') === $status ? 'checked' : '' }}>
+                                    <span>{{ $status }}</span>
+                                </label>
+                            @endforeach
+                        </div>
+                    </fieldset>
+
                     <div>
                         <label for="harga" class="mb-1.5 block text-sm font-semibold text-slate-700">Harga <span class="text-red-500">*</span></label>
                         <div class="relative">

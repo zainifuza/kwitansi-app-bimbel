@@ -15,6 +15,10 @@ return [
     // Letakkan file stempel (PNG transparan) di public/images/stempel.png
     'stempel'   => env('COMPANY_STEMPEL', 'images/stempel.png'),
 
+    // Letakkan logo lunas dan tanda tangan di public/images.
+    'logo_lunas' => env('COMPANY_LOGO_LUNAS', 'images/logo_lunas.png'),
+    'signature'  => env('COMPANY_SIGNATURE', 'images/signature.png'),
+
     // Nama default yang tertera di kolom "Penerima" jika tidak diisi di form
     'penerima'  => env('COMPANY_PENERIMA', 'Admin Keuangan'),
 ];

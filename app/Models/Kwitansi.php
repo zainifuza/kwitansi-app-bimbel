@@ -14,6 +14,7 @@ class Kwitansi extends Model
         'nama_pembeli',
         'nama_paket',
         'harga',
+        'status_pembayaran',
         'tujuan_pembelian',
         'tanggal',
         'nama_penerima',
